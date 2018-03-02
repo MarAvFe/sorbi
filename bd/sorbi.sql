@@ -148,6 +148,38 @@ CREATE TABLE IF NOT EXISTS `Sorbi`.`Question_has_Option` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `Sorbi`.`OptionsTemplate`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Sorbi`.`OptionsTemplate` (
+  `idOptionsTemplate` INT NOT NULL AUTO_INCREMENT,
+  `OptionsTemplatecol` VARCHAR(45) NULL,
+  PRIMARY KEY (`idOptionsTemplate`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Sorbi`.`OptionsTemplate_has_Option`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Sorbi`.`OptionsTemplate_has_Option` (
+  `OptionsTemplate_idOptionsTemplate` INT NOT NULL,
+  `Option_idOption` INT NOT NULL,
+  PRIMARY KEY (`OptionsTemplate_idOptionsTemplate`, `Option_idOption`),
+  INDEX `fk_OptionsTemplate_has_Option_Option1_idx` (`Option_idOption` ASC),
+  INDEX `fk_OptionsTemplate_has_Option_OptionsTemplate1_idx` (`OptionsTemplate_idOptionsTemplate` ASC),
+  CONSTRAINT `fk_OptionsTemplate_has_Option_OptionsTemplate1`
+    FOREIGN KEY (`OptionsTemplate_idOptionsTemplate`)
+    REFERENCES `Sorbi`.`OptionsTemplate` (`idOptionsTemplate`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_OptionsTemplate_has_Option_Option1`
+    FOREIGN KEY (`Option_idOption`)
+    REFERENCES `Sorbi`.`Option` (`idOption`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
