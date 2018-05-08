@@ -1,0 +1,48 @@
+<div class="card">
+    <h2 class="card-header">Resultados</h2>
+    <div class="card-body">
+        <ul class="list-unstyled">
+            <h5 *ngIf="allQuestions.length < 1" class="noInfo">No hay información</h5>
+            <li *ngFor="let item of allQuestions; index as i">
+                <div class="card">
+                    <div class="card-header" (click)="item.isCollapsed = !item.isCollapsed" [attr.aria-expanded]="!item.isCollapsed" aria-controls="collapseExample">
+                        {{i+1}}- {{item.name}}
+                    </div>
+                    <div class="card-body" [ngbCollapse]="item.isCollapsed">
+                        <div class="row">
+                            <div class="col col-md-8">
+                                <div *ngIf="item.type == 'bar'; then barChart else pieChart"></div>
+                                <ng-template #barChart>
+                                    <canvas baseChart [datasets]="item.dataset" [labels]="item.labels" [options]="item.options" [legend]="item.legend" [chartType]="item.type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                                    </canvas>
+                                </ng-template>
+                                <ng-template #pieChart>
+                                    <canvas baseChart height="180px" [data]="item.data" [labels]="item.labels" [chartType]="item.type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                                    </canvas>
+                                </ng-template>
+                            </div>
+                            <div class="col col-md-4">
+                                <div class="mt-3 mr-2">
+                                    <h4>Agregar una respuesta</h4>
+                                    <div>
+                                        <!-- <form [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" > -->
+                                        <form role="form">
+                                            <fieldset class="form-group">
+                                                <input class="form-control" type="text">
+                                            </fieldset>
+
+                                            <input type="submit" class="btn btn-info forsubmit" value="Agregar">
+                                        </form>
+                                    </div>
+                                    <p>
+                                        Email entered is : {{answerAr[i]}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Encuestas'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <hr />
+    <app-new-survey></app-new-survey>
+    <hr />
+    <app-details [surveys]="surveys" (selectedSurveyIndex)="surveyChanged($event)"></app-details>
+    <hr />
+    <app-results [questions]="surveys[slcIdx].questions"></app-results>
+</div>

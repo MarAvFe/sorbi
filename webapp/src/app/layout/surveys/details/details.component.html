@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Análisis de
+            <select (change)="onChange($event.target.value)">
+                <option *ngFor="let survey of surveys">{{survey.name}}</option>
+            </select>
+        </h2>
+    </div>
+    <div class="card-body">
+        <p>
+            {{surveys[selected].description}}
+        </p>
+    </div>
+</div>
